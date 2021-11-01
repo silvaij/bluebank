@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import br.com.bloodblue.bluebank.entity.Cliente;
+import br.com.bloodblue.bluebank.entity.Endereco;
 
 public class ClienteDto {
 
@@ -14,9 +15,8 @@ public class ClienteDto {
 	private Date dataNascimento;
 	private Integer telefone;
 	private String email;
-	//private Endereco endereco;
+	private Endereco endereco;
 	//Conta conta;
-	//equals  e hashCode
 	
 	public ClienteDto(Long id, String nomeCompleto, Long cpf, Long rg, Date dataNascimento, Integer telefone,
 			String email) {
