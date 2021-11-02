@@ -1,28 +1,46 @@
 /*
-* @author Isaque Silva
-* @Date 01/11/2021 14:43
-* @Objetivo : Entidade do cliente para ser transicionado via DTO para persistir em banco de dados
-* */
+ * @author Isaque Silva
+ * @Date 01/11/2021 14:43
+ * @Objetivo : Entidade do cliente para ser transicionado via DTO para persistir em banco de dados
+ * */
 
 package br.com.bloodblue.bluebank.entity;
+
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Cliente {
+@Entity
+@Table(name = "tb_cliente")
+public class Cliente implements Serializable {
 
     //Atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeCompleto;
-    private Long cpf;
-    private Long rg;
+    private String cpf;
+    private String rg;
+
+    @Column(columnDefinition = "DATE")
     private LocalDate dataNascimento;
-    private Integer telefone;
+    private String telefone;
     private String email;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     //private Conta conta; -- atributo ser desmarcado apos definicao de conta.
 
     //Construtores
-    public Cliente(Long id, String nomeCompleto, Long cpf, Long rg, LocalDate dataNascimento, Integer telefone, String email, Endereco endereco) {
+    public Cliente() {
+
+    }
+
+    public Cliente(Long id, String nomeCompleto, String cpf, String rg, LocalDate dataNascimento, String telefone, String email, Endereco endereco) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
@@ -33,28 +51,25 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public Cliente(){}
-
-    /* Construtor que irá receber DTO
-    public Cliente(ClientDto dto){
-        this.id = dto.getId();
-        this.nomeCompleto = dto.getNomeCompleto();
-        this.cpf = dto.getCpf();
-        this.rg = dto.getRg();
-        this.dataNascimento = dto.getDataNascimento();
-        this.telefone = dto.getTelefone();
-        this.email = dto.getEmail();
-        this.endereco = dto.getEndereco();
-    }*/
-
+/*
+    //Construtor que irá receber DTO
+    public Cliente(ClienteDto dto) {
+        id = dto.getId();
+        nomeCompleto = dto.getNomeCompleto();
+        cpf = dto.getCpf();
+        rg = dto.getRg();
+        dataNascimento = dto.getDataNascimento();
+        telefone = dto.getTelefone();
+        email = dto.getEmail();
+        endereco = dto.getEndereco();
+    }
+*/
 
     // Getters and Setters
+
+
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNomeCompleto() {
@@ -65,19 +80,19 @@ public class Cliente {
         this.nomeCompleto = nomeCompleto;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public Long getRg() {
+    public String getRg() {
         return rg;
     }
 
-    public void setRg(Long rg) {
+    public void setRg(String rg) {
         this.rg = rg;
     }
 
@@ -89,11 +104,11 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
     }
 
-    public Integer getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -112,6 +127,7 @@ public class Cliente {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+
 
     //Sobrescrevendo os métodos equals e hashcode de Object
     @Override

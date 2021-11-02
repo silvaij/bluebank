@@ -1,14 +1,15 @@
-package br.com.bloodblue.bluebank.entity;
+package br.com.bloodblue.bluebank.dto;
 
-import javax.persistence.*;
+import br.com.bloodblue.bluebank.entity.Cliente;
+import br.com.bloodblue.bluebank.entity.Endereco;
+
+import javax.persistence.OneToOne;
+import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "tb_endereco")
-public class Endereco {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EnderecoDto implements Serializable {
+
     private Long id;
     private String rua;
     private Integer numero;
@@ -16,15 +17,13 @@ public class Endereco {
     private String cidade;
     private String estado;
     private String cep;
-
-    @OneToOne(mappedBy = "endereco")
     private Cliente cliente;
 
+    public EnderecoDto() {
 
-    public Endereco() {
     }
 
-    public Endereco(Long id, String rua, Integer numero, String complemento, String cidade, String estado, String cep) {
+    public EnderecoDto(Long id, String rua, Integer numero, String complemento, String cidade, String estado, String cep) {
         this.id = id;
         this.rua = rua;
         this.numero = numero;
@@ -33,6 +32,17 @@ public class Endereco {
         this.estado = estado;
         this.cep = cep;
     }
+
+    public EnderecoDto(Endereco endereco) {
+        id = endereco.getId();
+        rua = endereco.getRua();
+        numero = endereco.getNumero();
+        complemento = endereco.getComplemento();
+        cidade = endereco.getCidade();
+        estado = endereco.getEstado();
+        cep = endereco.getCep();
+    }
+
 
     public Long getId() {
         return id;
@@ -78,7 +88,7 @@ public class Endereco {
         this.estado = estado;
     }
 
-    public String getCep() {
+    public String  getCep() {
         return cep;
     }
 
@@ -96,8 +106,8 @@ public class Endereco {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Endereco endereco = (Endereco) o;
-        return Objects.equals(id, endereco.id);
+        EnderecoDto that = (EnderecoDto) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
