@@ -10,8 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-
-
     Optional<Cliente> findByCpf(String cpf);
 
     @Query("SELECT c FROM Cliente c WHERE c.nomeCompleto LIKE CONCAT ('%', :nomeCompleto, '%')")
