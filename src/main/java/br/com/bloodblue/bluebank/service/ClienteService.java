@@ -3,6 +3,7 @@ package br.com.bloodblue.bluebank.service;
 import br.com.bloodblue.bluebank.dto.ClienteDto;
 import br.com.bloodblue.bluebank.entity.Cliente;
 import br.com.bloodblue.bluebank.repository.ClienteRepository;
+import br.com.bloodblue.bluebank.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -30,7 +32,7 @@ public class ClienteService {
     @Transactional(readOnly = true)
     public ClienteDto findByCpf(String cpf) {
         Optional<Cliente> obj = clienteRepository.findByCpf(cpf);
-        Cliente entity = obj.orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado!"));
+        Cliente entity = obj.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado!"));
         return new ClienteDto(entity);
 
     }
@@ -38,9 +40,8 @@ public class ClienteService {
     @Transactional(readOnly = true)
     public List<ClienteDto> findByNomeCompleto(String nomeCompleto) {
         Optional<List<Cliente>> obj = clienteRepository.findByNome(nomeCompleto);
-        List<Cliente> list = obj.orElseThrow(() -> new EntityNotFoundException("Cliente não econtrado"));
+        List<Cliente> list = obj.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
         return list.stream().map(x -> new ClienteDto(x)).collect(Collectors.toList());
-        //return new ClienteDto(entity);
     }
 
     @Transactional
@@ -56,13 +57,13 @@ public class ClienteService {
 
         try {
             Optional<Cliente> obj = clienteRepository.findByCpf(cpf);
-            Cliente entity = obj.orElseThrow(()-> new EntityNotFoundException("Cliente não encontrado"));
+            Cliente entity = obj.orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
             copyDtoToEntity(dto, entity);
             entity = clienteRepository.save(entity);
             return new ClienteDto(entity);
 
         } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException("Cliente não encontrado: " + cpf);
+            throw new ResourceNotFoundException("Cliente não encontrado: cpf " + cpf);
         }
     }
 
@@ -74,12 +75,17 @@ public class ClienteService {
             id = clienteRepository.findByCpf(cpf).get().getId();
             clienteRepository.deleteById(id);
 
+        } catch (NoSuchElementException e) {
+            throw new ResourceNotFoundException("Cliente não encontrado");
+
         } catch (EmptyResultDataAccessException e) {
-            throw new EmptyResultDataAccessException("Cliente não encontrado", id.intValue() );
+            throw new EmptyResultDataAccessException("Cliente não encontrado", id.intValue());
 
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException("Erro de integridade");
         }
+
+
     }
 
 
