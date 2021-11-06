@@ -1,14 +1,16 @@
 package br.com.bloodblue.bluebank.entity;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /*
-* Author:Isaque Silva
-* Date : 03-11-2021 09:58
-* Objetivo: Entidade conta ira representar a conta do cliente tem como responsabilidade
-* disponibilizar para efetuar as transações de uma conta
-* */
+ * Author:Isaque Silva
+ * Date : 03-11-2021 09:58
+ * Objetivo: Entidade conta ira representar a conta do cliente tem como responsabilidade
+ * disponibilizar para efetuar as transações de uma conta
+ * */
 
 @Entity
 @Table(name = "tb_conta")
@@ -17,25 +19,32 @@ public class Conta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String  banco;
-    private String  numeroAgencia;
-    private String  numeroConta;
-    private Double  saldo;
-    private Double  chequeEspecial = 1.000;
+    private String banco;
+    private String numeroAgencia;
+    private String numeroConta;
+    private Double saldo;
+    private Double chequeEspecial = 1.000;
+
 
 
     //METODOS DE TRANSFERENCIA A SER IMPLEMENTADO
-    public double depositar(double valor){
+    public double depositar(double valor) {
         return 0.0;
-    };
+    }
 
-    public double transfere(double valor){
-        return 0.0;
-    } ;
+    ;
 
-    public  double sacar(double valor){
+    public double transfere(double valor) {
         return 0.0;
-    };
+    }
+
+    ;
+
+    public double sacar(double valor) {
+        return 0.0;
+    }
+
+    ;
 
     // Metodos Getters and Setters
     public String getBanco() {
@@ -62,9 +71,11 @@ public class Conta implements Serializable {
         this.numeroConta = numeroConta;
     }
 
-    public Double getSaldo(){
+    public Double getSaldo() {
         return saldo;
-    };
+    }
+
+    ;
 
     public void setSaldo(Double saldo) {
         this.saldo = saldo + chequeEspecial;
@@ -78,17 +89,17 @@ public class Conta implements Serializable {
         this.chequeEspecial = chequeEspecial;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long conta){
+    public void setId(Long conta) {
         this.id = id;
     }
 
 
     // Construtores da Classe
-    public Conta (String banco, String numeroAgencia, String numeroConta, Double saldo, Double chequeEspecial) {
+    public Conta(String banco, String numeroAgencia, String numeroConta, Double saldo, Double chequeEspecial) {
         super();
         this.banco = banco;
         this.numeroAgencia = numeroAgencia;
@@ -97,7 +108,10 @@ public class Conta implements Serializable {
         this.chequeEspecial = chequeEspecial;
     }
 
-    public Conta(){};
+    public Conta() {
+    }
+
+    ;
 
     // Equals and HashCode
     @Override

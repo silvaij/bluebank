@@ -6,8 +6,6 @@
 
 package br.com.bloodblue.bluebank.entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -22,12 +20,15 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeCompleto;
+
+    @Column(unique = true, nullable = false)
     private String cpf;
     private String rg;
 
     @Column(columnDefinition = "DATE")
     private LocalDate dataNascimento;
     private String telefone;
+
     private String email;
 
 

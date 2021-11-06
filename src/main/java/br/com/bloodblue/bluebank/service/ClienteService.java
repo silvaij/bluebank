@@ -48,7 +48,12 @@ public class ClienteService {
     public ClienteDto insert(ClienteDto dto) {
         Cliente entity = new Cliente();
         copyDtoToEntity(dto, entity);
-        entity = clienteRepository.save(entity);
+
+        try {
+            entity = clienteRepository.save(entity);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResourceNotFoundException("Erro de insert cliente: cpf " + entity.getCpf());
+        }
         return new ClienteDto(entity);
     }
 
