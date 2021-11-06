@@ -2,8 +2,10 @@ package br.com.bloodblue.bluebank.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 /*
  * Author:Isaque Silva
@@ -23,10 +25,35 @@ public class Conta implements Serializable {
     private String numeroAgencia;
     private String numeroConta;
     private Double saldo;
-    private Double chequeEspecial = 1.000;
+    private Double chequeEspecial;
+
+    @OneToOne(mappedBy = "conta")
+    private Cliente cliente;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Extrato> extratos;
 
 
+    public Conta() {
+        this.banco = "BlueBank";
+        this.numeroAgencia = String.valueOf((int) (Math.random() * 1000000) + 1);
+        this.numeroConta = String.valueOf((int) (Math.random() * 1000) + 1);
+        this.saldo = 0.0;
+        this.chequeEspecial = 1000.00;
 
+    }
+
+    /*
+        // Construtores da Classe
+        public Conta(String banco, String numeroAgencia, String numeroConta, Double saldo, Double chequeEspecial) {
+            this.banco = banco;
+            this.numeroAgencia = numeroAgencia;
+            this.numeroConta = numeroConta;
+            this.saldo = saldo;
+            this.chequeEspecial = chequeEspecial;
+        }
+
+    */
     //METODOS DE TRANSFERENCIA A SER IMPLEMENTADO
     public double depositar(double valor) {
         return 0.0;
@@ -97,33 +124,24 @@ public class Conta implements Serializable {
         this.id = id;
     }
 
-
-    // Construtores da Classe
-    public Conta(String banco, String numeroAgencia, String numeroConta, Double saldo, Double chequeEspecial) {
-        super();
-        this.banco = banco;
-        this.numeroAgencia = numeroAgencia;
-        this.numeroConta = numeroConta;
-        this.saldo = saldo;
-        this.chequeEspecial = chequeEspecial;
+    public List<Extrato> getExtratos() {
+        return extratos;
     }
 
-    public Conta() {
+    public void setExtratos(List<Extrato> extratos) {
+        this.extratos = extratos;
     }
 
-    ;
-
-    // Equals and HashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Conta)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Conta conta = (Conta) o;
-        return banco.equals(conta.banco) && numeroAgencia.equals(conta.numeroAgencia) && numeroConta.equals(conta.numeroConta) && saldo.equals(conta.saldo) && chequeEspecial.equals(conta.chequeEspecial);
+        return Objects.equals(id, conta.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(banco, numeroAgencia, numeroConta, saldo, chequeEspecial);
+        return Objects.hash(id);
     }
 }

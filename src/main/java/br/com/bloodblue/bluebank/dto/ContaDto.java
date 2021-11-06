@@ -7,14 +7,22 @@ import java.util.Objects;
 
 public class ContaDto implements Serializable {
     private Long id;
-    private String  banco;
-    private String  numeroAgencia;
-    private String  numeroConta;
-    private Double  saldo;
-    private Double  chequeEspecial = 1.000;
+    private String banco;
+    private String numeroAgencia;
+    private String numeroConta;
+    private Double saldo;
+    private Double chequeEspecial = 1.000;
 
     //CONSTRUTORES
-    public ContaDto(){};
+    public ContaDto() {
+        this.banco = "BlueBank";
+        this.numeroAgencia = String.valueOf((int) (Math.random() * 1000000) + 1);
+        this.numeroConta = String.valueOf((int) (Math.random() * 1000) + 1);
+        this.saldo = 0.0;
+        this.chequeEspecial = 1000.00;
+    }
+
+    ;
 
     public ContaDto(String banco, String numeroAgencia, String numeroConta, Double saldo, Double chequeEspecial, Long id) {
         this.banco = banco;
@@ -25,13 +33,14 @@ public class ContaDto implements Serializable {
         this.id = id;
     }
 
-    public ContaDto(Conta conta){
+    public ContaDto(Conta conta) {
+        this.id = conta.getId();
         this.banco = conta.getBanco();
-        this.numeroAgencia = conta.getNumeroAgencia() ;
+        this.numeroAgencia = conta.getNumeroAgencia();
         this.numeroConta = conta.getNumeroConta();
         this.saldo = conta.getSaldo();
         this.chequeEspecial = conta.getChequeEspecial();
-        this.id = conta.getId();
+
     }
 
     //Metodos Getters and Setterd
@@ -86,13 +95,13 @@ public class ContaDto implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ContaDto)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         ContaDto contaDto = (ContaDto) o;
-        return id.equals(contaDto.id) && banco.equals(contaDto.banco) && numeroAgencia.equals(contaDto.numeroAgencia) && numeroConta.equals(contaDto.numeroConta) && saldo.equals(contaDto.saldo) && chequeEspecial.equals(contaDto.chequeEspecial);
+        return Objects.equals(id, contaDto.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, banco, numeroAgencia, numeroConta, saldo, chequeEspecial);
+        return Objects.hash(id);
     }
 }

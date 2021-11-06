@@ -3,7 +3,6 @@ package br.com.bloodblue.bluebank.dto;
 import br.com.bloodblue.bluebank.entity.Cliente;
 import br.com.bloodblue.bluebank.entity.Endereco;
 
-import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -88,7 +87,7 @@ public class EnderecoDto implements Serializable {
         this.estado = estado;
     }
 
-    public String  getCep() {
+    public String getCep() {
         return cep;
     }
 

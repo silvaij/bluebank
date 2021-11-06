@@ -34,7 +34,9 @@ public class Cliente implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
-    //private Conta conta; -- atributo ser desmarcado apos definicao de conta.
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Conta conta;
 
     //Construtores
     public Cliente() {
@@ -129,18 +131,26 @@ public class Cliente implements Serializable {
         this.endereco = endereco;
     }
 
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
 
     //Sobrescrevendo os métodos equals e hashcode de Object
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Cliente)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return id.equals(cliente.id) && nomeCompleto.equals(cliente.nomeCompleto) && cpf.equals(cliente.cpf) && rg.equals(cliente.rg) && dataNascimento.equals(cliente.dataNascimento) && telefone.equals(cliente.telefone) && email.equals(cliente.email) && endereco.equals(cliente.endereco);
+        return Objects.equals(id, cliente.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nomeCompleto, cpf, rg, dataNascimento, telefone, email, endereco);
+        return Objects.hash(id);
     }
 }

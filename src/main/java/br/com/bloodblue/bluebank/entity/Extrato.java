@@ -1,38 +1,35 @@
-package br.com.bloodblue.bluebank.dto;
+package br.com.bloodblue.bluebank.entity;
 
-import br.com.bloodblue.bluebank.entity.Extrato;
-import br.com.bloodblue.bluebank.entity.Operacao;
-
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-public class ExtratoDto implements Serializable {
+@Entity
+@Table(name = "tb_extrato")
+public class Extrato implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
     private Operacao operacao;
+
     private String nome;
     private Double valor;
     private Instant momento;
 
-    public ExtratoDto() {
+    public Extrato() {
 
     }
 
-    public ExtratoDto(Long id, Operacao operacao, String nome, Double valor, Instant momento) {
+    public Extrato(Long id, Operacao operacao, String nome, Double valor, Instant momento) {
         this.id = id;
         this.operacao = operacao;
         this.nome = nome;
         this.valor = valor;
         this.momento = momento;
-    }
-
-    public ExtratoDto(Extrato entity) {
-        this.id = entity.getId();
-        this.operacao = entity.getOperacao();
-        this.nome = entity.getNome();
-        this.valor = entity.getValor();
-        this.momento = entity.getMomento();
     }
 
     public Long getId() {
@@ -88,7 +85,7 @@ public class ExtratoDto implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ExtratoDto other = (ExtratoDto) obj;
+        Extrato other = (Extrato) obj;
         return Objects.equals(id, other.id) && Objects.equals(momento, other.momento)
                 && Objects.equals(nome, other.nome) && operacao == other.operacao && Objects.equals(valor, other.valor);
     }

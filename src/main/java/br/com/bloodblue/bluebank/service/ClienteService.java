@@ -102,6 +102,7 @@ public class ClienteService {
         entity.setTelefone(dto.getTelefone());
         entity.setEmail(dto.getEmail());
         entity.setEndereco(dto.getEndereco());
+        entity.setConta(dto.getConta());
     }
 
     private void copyEntityToDto(Cliente entity, ClienteDto dto) {
@@ -112,6 +113,7 @@ public class ClienteService {
         dto.setTelefone(entity.getTelefone());
         dto.setEmail(entity.getEmail());
         dto.setEndereco(entity.getEndereco());
+        dto.setConta(entity.getConta());
     }
 
 
