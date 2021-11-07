@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/api-bluebank/v1/clientes")
 public class ClienteController {
 
     @Autowired

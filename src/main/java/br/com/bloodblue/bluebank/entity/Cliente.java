@@ -54,23 +54,6 @@ public class Cliente implements Serializable {
         this.endereco = endereco;
     }
 
-/*
-    //Construtor que irá receber DTO
-    public Cliente(ClienteDto dto) {
-        id = dto.getId();
-        nomeCompleto = dto.getNomeCompleto();
-        cpf = dto.getCpf();
-        rg = dto.getRg();
-        dataNascimento = dto.getDataNascimento();
-        telefone = dto.getTelefone();
-        email = dto.getEmail();
-        endereco = dto.getEndereco();
-    }
-*/
-
-    // Getters and Setters
-
-
     public Long getId() {
         return id;
     }

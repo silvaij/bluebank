@@ -1,5 +1,6 @@
 package br.com.bloodblue.bluebank.controller.exceptions;
 
+import br.com.bloodblue.bluebank.service.exceptions.AccountErrorException;
 import br.com.bloodblue.bluebank.service.exceptions.DatabaseException;
 import br.com.bloodblue.bluebank.service.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,18 @@ public class ControllerExceptionHandler {
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
         err.setError("Database exception");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(AccountErrorException.class)
+    public ResponseEntity<StandardError> accountError(AccountErrorException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError("Account exception");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);

@@ -1,11 +1,11 @@
 package br.com.bloodblue.bluebank.entity;
 
+import br.com.bloodblue.bluebank.service.exceptions.AccountErrorException;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 /*
  * Author:Isaque Silva
@@ -25,10 +25,6 @@ public class Conta implements Serializable {
     private String numeroAgencia;
     private String numeroConta;
     private Double saldo;
-    private Double chequeEspecial;
-
-    @OneToOne(mappedBy = "conta")
-    private Cliente cliente;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Extrato> extratos;
@@ -36,42 +32,25 @@ public class Conta implements Serializable {
 
     public Conta() {
         this.banco = "BlueBank";
-        this.numeroAgencia = String.valueOf((int) (Math.random() * 1000000) + 1);
-        this.numeroConta = String.valueOf((int) (Math.random() * 1000) + 1);
-        this.saldo = 0.0;
-        this.chequeEspecial = 1000.00;
-
+        this.numeroAgencia = String.valueOf((int) (Math.random() * 1000) + 1);
+        this.numeroConta = String.valueOf((int) (Math.random() * 1000000) + 1);
+        this.saldo = 1000.0;
     }
 
-    /*
-        // Construtores da Classe
-        public Conta(String banco, String numeroAgencia, String numeroConta, Double saldo, Double chequeEspecial) {
-            this.banco = banco;
-            this.numeroAgencia = numeroAgencia;
-            this.numeroConta = numeroConta;
-            this.saldo = saldo;
-            this.chequeEspecial = chequeEspecial;
-        }
 
-    */
     //METODOS DE TRANSFERENCIA A SER IMPLEMENTADO
-    public double depositar(double valor) {
-        return 0.0;
+    public void depositar(double valor) {
+        setSaldo(getSaldo() + valor);
     }
 
-    ;
-
-    public double transfere(double valor) {
-        return 0.0;
+    public void sacar(double valor) {
+        if (getSaldo() >= valor) {
+            setSaldo(getSaldo() - valor);
+        } else {
+            throw new AccountErrorException("Saldo insuficiente");
+        }
     }
 
-    ;
-
-    public double sacar(double valor) {
-        return 0.0;
-    }
-
-    ;
 
     // Metodos Getters and Setters
     public String getBanco() {
@@ -102,18 +81,8 @@ public class Conta implements Serializable {
         return saldo;
     }
 
-    ;
-
     public void setSaldo(Double saldo) {
-        this.saldo = saldo + chequeEspecial;
-    }
-
-    public Double getChequeEspecial() {
-        return chequeEspecial;
-    }
-
-    public void setChequeEspecial(Double chequeEspecial) {
-        this.chequeEspecial = chequeEspecial;
+        this.saldo = saldo;
     }
 
     public Long getId() {

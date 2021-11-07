@@ -1,5 +1,7 @@
 package br.com.bloodblue.bluebank.entity;
 
+import br.com.bloodblue.bluebank.dto.ExtratoDto;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -30,6 +32,14 @@ public class Extrato implements Serializable {
         this.nome = nome;
         this.valor = valor;
         this.momento = momento;
+    }
+
+    public Extrato(ExtratoDto dto) {
+        this.id = dto.getId();
+        this.operacao = dto.getOperacao();
+        this.nome = dto.getNome();
+        this.valor = dto.getValor();
+        this.momento = dto.getMomento();
     }
 
     public Long getId() {

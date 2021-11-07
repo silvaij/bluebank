@@ -17,9 +17,6 @@ public class Endereco {
     private String estado;
     private String cep;
 
-    @OneToOne(mappedBy = "endereco")
-    private Cliente cliente;
-
 
     public Endereco() {
     }

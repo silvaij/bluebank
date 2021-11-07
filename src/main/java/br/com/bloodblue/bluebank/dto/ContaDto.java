@@ -11,25 +11,24 @@ public class ContaDto implements Serializable {
     private String numeroAgencia;
     private String numeroConta;
     private Double saldo;
-    private Double chequeEspecial = 1.000;
+    //private Double chequeEspecial = 1.000;
 
     //CONSTRUTORES
     public ContaDto() {
         this.banco = "BlueBank";
         this.numeroAgencia = String.valueOf((int) (Math.random() * 1000000) + 1);
         this.numeroConta = String.valueOf((int) (Math.random() * 1000) + 1);
-        this.saldo = 0.0;
-        this.chequeEspecial = 1000.00;
+        this.saldo = 1000.00;
+        //this.chequeEspecial = 1000.00;
     }
 
-    ;
 
-    public ContaDto(String banco, String numeroAgencia, String numeroConta, Double saldo, Double chequeEspecial, Long id) {
+    public ContaDto(String banco, String numeroAgencia, String numeroConta, Double saldo, Long id) {
+
         this.banco = banco;
         this.numeroAgencia = numeroAgencia;
         this.numeroConta = numeroConta;
         this.saldo = saldo;
-        this.chequeEspecial = chequeEspecial;
         this.id = id;
     }
 
@@ -39,8 +38,6 @@ public class ContaDto implements Serializable {
         this.numeroAgencia = conta.getNumeroAgencia();
         this.numeroConta = conta.getNumeroConta();
         this.saldo = conta.getSaldo();
-        this.chequeEspecial = conta.getChequeEspecial();
-
     }
 
     //Metodos Getters and Setterd
@@ -82,14 +79,6 @@ public class ContaDto implements Serializable {
 
     public void setSaldo(Double saldo) {
         this.saldo = saldo;
-    }
-
-    public Double getChequeEspecial() {
-        return chequeEspecial;
-    }
-
-    public void setChequeEspecial(Double chequeEspecial) {
-        this.chequeEspecial = chequeEspecial;
     }
 
     @Override

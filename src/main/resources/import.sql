@@ -23,10 +23,15 @@ INSERT INTO tb_endereco(rua, numero, complemento, cidade, estado, cep) VALUES('R
 INSERT INTO tb_endereco(rua, numero, complemento, cidade, estado, cep) VALUES('95 COUNTRY CLUB RD,40 - AP 506 BLOCO 2', '40', 'Ap 506 bloco 2', 'SP', 'Virginia Beach', 23446);
 INSERT INTO tb_endereco(rua, numero, complemento, cidade, estado, cep) VALUES('102 GROVELAND ST,3', '3', NULL, 'SP', 'Beaumont', 34345);
 
+--POPULAR TB_CONTA
+INSERT INTO tb_conta(banco, numero_agencia, numero_conta, saldo) VALUES('BlueBank', '0001', '123456', 1000.00);
+INSERT INTO tb_conta(banco, numero_agencia, numero_conta, saldo) VALUES('BlueBank', '0001', '112233', 1000.00);
+
 
 --POPULAR TB_CLIENTE
-INSERT INTO tb_cliente (nome_completo, cpf, rg, data_nascimento, telefone, email, endereco_id) VALUES ('Bruno Carvalho', '00000000000', '020205203', '1982-04-30', '(24) 99991-3731', 'boakdev@gmail.com', 1);
-INSERT INTO tb_cliente (nome_completo, cpf, rg, data_nascimento, telefone, email, endereco_id) VALUES ('Romeu Carvalho', '11111111111', '020205203', '2011-10-03', '(24) 99991-3731', 'memeudev@gmail.com', 2);
+INSERT INTO tb_cliente (nome_completo, cpf, rg, data_nascimento, telefone, email, endereco_id, conta_id) VALUES ('Bruno Carvalho', '00000000000', '020205203', '1982-04-30', '(24) 99991-3731', 'boakdev@gmail.com', 1, 1);
+INSERT INTO tb_cliente (nome_completo, cpf, rg, data_nascimento, telefone, email, endereco_id, conta_id) VALUES ('Isaque Silva', '11111111111', '020205203', '1990-05-10', '(11) 99746-5171', 'isaque@gmail.com', 4, 2);
+INSERT INTO tb_cliente (nome_completo, cpf, rg, data_nascimento, telefone, email, endereco_id) VALUES ('Romeu Carvalho', '01010101010', '020205203', '2011-10-03', '(24) 99991-3731', 'memeudev@gmail.com', 2);
 INSERT INTO tb_cliente (nome_completo, cpf, rg, data_nascimento, telefone, email, endereco_id) VALUES ('Bento Carvalho', '22222222222', '020205203', '2020-02-27', '(24) 99991-3731', 'bentodev@gmail.com', 3);
 INSERT INTO tb_cliente (nome_completo, cpf, rg, data_nascimento, telefone, email, endereco_id) VALUES('Dale Ada', 45832916557, '27.242.111-X', TIMESTAMP '1976-12-08 00:00:00.000000', '11965552117', 'Ferdinand.Emerson@nytimes.us',4);
 INSERT INTO tb_cliente (nome_completo, cpf, rg, data_nascimento, telefone, email, endereco_id) VALUES('Ronald Ethelbert', 91616864508, '25.242.064-0', TIMESTAMP '1976-08-25 00:00:00.000000', '11985551061', 'Romanth.Aston@iol.us',5);
