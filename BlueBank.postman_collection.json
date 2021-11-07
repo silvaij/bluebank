@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "ddc86f1e-22b7-4901-a921-cf2e650680ec",
+		"name": "BlueBank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "All Clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/clientes/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"clientes",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeCompleto\": \"Luiz Balzante\",\r\n    \"cpf\": \"11223344556\",\r\n    \"rg\": \"0304050\",\r\n    \"dataNascimento\": \"1998-08-25\",\r\n    \"telefone\": \"81 9639-4745\",\r\n    \"email\": \"luis@gmail.com\",\r\n        \"endereco\": {\r\n            \"rua\": \"Rua do pernanbuk\",\r\n            \"numero\": 10,\r\n            \"complemento\": \"Vila Pernan\",\r\n            \"cidade\": \"Pernambuco\",\r\n            \"estado\": \"PE\",\r\n            \"cep\": \"112312697\"\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/clientes/salvar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"clientes",
+								"salvar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeCompleto\": \"João Editado\",\r\n    \"cpf\": \"11122233344\",\r\n    \"rg\": \"0304050\",\r\n    \"dataNascimento\": \"1970-03-15\",\r\n    \"telefone\": \"(24) 99991-3731\",\r\n    \"email\": \"editado@gmail.com\",\r\n        \"endereco\": {\r\n            \"rua\": \"Rua da Edição\",\r\n            \"numero\": 180,\r\n            \"complemento\": \"Bairro Edit\",\r\n            \"cidade\": \"EdiCity\",\r\n            \"estado\": \"ED\",\r\n            \"cep\": \"2588523\"\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/clientes/editar/22222222222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"clientes",
+								"editar",
+								"22222222222"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cliente por Cpf",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/clientes/listar/cpf/11111111111",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"clientes",
+								"listar",
+								"cpf",
+								"11111111111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cliente por Nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/clientes/listar/nome/bruno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"clientes",
+								"listar",
+								"nome",
+								"bruno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/clientes/excluir/94508288593",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"clientes",
+								"excluir",
+								"94508288593"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Conta",
+			"item": [
+				{
+					"name": "Depositar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/conta/deposito?numConta=123456&valor=550.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"conta",
+								"deposito"
+							],
+							"query": [
+								{
+									"key": "numConta",
+									"value": "123456"
+								},
+								{
+									"key": "valor",
+									"value": "550.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sacar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/conta/saque?numConta=123456&valor=150.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"conta",
+								"saque"
+							],
+							"query": [
+								{
+									"key": "numConta",
+									"value": "123456"
+								},
+								{
+									"key": "valor",
+									"value": "150.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transferir",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/conta/transfere/?numContaOrigem=123456&numContaDestino=112233&valor=150.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"conta",
+								"transfere",
+								""
+							],
+							"query": [
+								{
+									"key": "numContaOrigem",
+									"value": "123456"
+								},
+								{
+									"key": "numContaDestino",
+									"value": "112233"
+								},
+								{
+									"key": "valor",
+									"value": "150.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar extratos por conta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api-bluebank/v1/conta/extrato/123456",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-bluebank",
+								"v1",
+								"conta",
+								"extrato",
+								"123456"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
