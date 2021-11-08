@@ -29,7 +29,7 @@ Antes de rodar a aplicação verifique se o arquivo application.properties está
     
 
 ### Outras informações do projeto :
-  - **Quadro Kanban utilizado pela equipe de Desenvolvimento:**https://trello.com/b/CWedMemU/blue-bank-gama-academy
+  - **Quadro Kanban utilizado pela equipe de Desenvolvimento:** https://trello.com/b/CWedMemU/blue-bank-gama-academy
   - **Documentação da API:** Todos end-points do projeto foram mapeados com utilização do SWAGGER que podem ser visualizados no endereço : **http://localhost:8080/swagger-ui.html#/conta-controller ** segue na imagem a seguir:
 
 ## End-points :
