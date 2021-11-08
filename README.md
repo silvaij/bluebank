@@ -6,45 +6,47 @@
 
 ## Configuração
 
-Antes de rodar a aplicação verifique se o arquivo application.properties está configurado corretamente com os atributos de conexão com banco de dados desejado ( url ( Driver | Provedor do Banco | Schema) , username , password , console enable , console path). Esse projeto utiliza um banco de dados H2Db pré-criado pelo usuário para funcionar corretamente.
+Antes de rodar a aplicação verifique se o arquivo application.properties está configurado corretamente com os atributos de conexão com banco de dados desejado ( url ( Driver | Provedor do Banco | Schema) , username , password , console enable , console path). Esse projeto utiliza um banco de dados H2Db pré-criado na inicialização do projeto em quanto o mesmo estiver em execução.
 
 ## Construção do Projeto
 
 ### Modelagem
-- **Conta:** classe concreta que define o modelo de entidade Conta e seus atributos (usuario) e métodos (debitar, creditar, transferir) e a implementação dos atributos que definem uma Conta bancária (numeroAgencia, numeroConta, banco, saldo,cheque especial).
-  - **Cliente:** implementação da classe Cliente com os atributos que definem um cliente do banco (cpf , rg , nomeCompleto,email,telefone,endereco)
-  - **Contatipo:** enum (CORRENTE, POUPANCA) utilizado por classes da aplicação
-  - **Endereço:** Classe concreta que ira compor o cliente será também um entidade de banco de dados.
-  - **?:**  (A definir)
-  - **?:** (A definir) utilizado por classes da aplicação
-  - **?:** (A definir)
-  - **Usuario:** define o modelo da entidade Usuario e seus atributos (login, senha, nome, cpf)
+  - **Conta:** classe concreta que define o modelo de entidade Conta e seus atributos  e métodos (depositar, sacar, transfere) e a implementação dos atributos que definem uma Conta bancária (numeroAgencia, numeroConta, banco, saldo, cliente).
+  - **Cliente:** implementação da classe Cliente com os atributos que definem um cliente do banco (cpf , rg , nomeCompleto,email,telefone,endereco, conta )
+  - **Operacao:** enum (CREDITO , DEBITO , PIX_ENVIADO , PIX_RECEBIDO) utilizado por classes da aplicação.
+  - **Endereço:** Classe concreta que ira compor o cliente será também uma entidade de banco de dados.
+  - **Extrato:**  Classe que representa uma entidade de banco de dados que irá servir para os registros de transacoes entre contas e conta do cliente.
 
 ### Repository
   - **ClienteRepository:** implementação dos métodos específicos de acesso e manipulação de entidades do tipo Cliente.
-  - **ContaRepository:** implementação dos métodos específicos de acesso e manipulação de entidades do tipo Lancamento
-  - **?Repository:** implementação dos métodos específicos de acesso e manipulação de entidades do tipo PlanoConta
-  - **RepositoryI:** declara a interface a ser implementada pelas classes do tipo Repository da aplicação (save, update, findAll, findById )
-  - **RepositoryImpl:** implementação básica das funcionalidades das classes de repository da aplicação (save, update, findAll, findById )
-  - **UsuarioRepository:** implementação dos métodos específicos de acesso e manipulação de entidades do tipo Usuario (exists, findByLogin)
+  - **ContaRepository:** implementação dos métodos específicos de acesso e manipulação de entidades do tipo Conta
+  - **ExtratoRepository:** implementação dos métodos específicos de acesso e manipulação de entidades do tipo Extrato
 
 ### Service
-  - **ContaService:** Serviços relativos ao ContaRepository utilizados pela aplicação (findById)
-  - **LancamentoService:** Serviços relativos ao LancamentoRepository utilizados pela aplicação (salvaLancamento, extractByIdConta, extractByPeriodAndIdConta)
-  - **PlanoContaService:** Serviços relativos ao PlanoContaRepository utilizados pela aplicação (salvaPlanoConta, findById)
-  - **ServiceI:** Interface implementada pelas classes Service da aplicação
-  - **ServiceImpl:** Implementação base dos serviços utilizados na aplicação (save, update, findById, findAll)
-  - **UsuarioService:** Serviços relativos ao UsuarioRepository utilizados pela aplicação
+  - **ClienteService:** Serviços relativos ao ClienteRepository utilizados pela aplicação (delete(), findall(),findByCpf(String),  findByNomeCompleto(String), insert(ClienteDto), update(String,ClienteDto))
+  - **ContaService:** Serviços relativos ao ContaRepository utilizados pela aplicação (depositar, findAllExtrato, sacar,transferir)
 
-### Utils
-  - **ConexaoFactory:** Factory de criação do EntityManager utilizado na aplicação
-  - **TextoUtils:** métodos auxiliares utilizado na validação de String
+    
+
+### Outras informações do projeto :
+  - **Quadro Kanban utilizado pela equipe de Desenvolvimento:** https://trello.com/b/CWedMemU/blue-bank-gama-academy
+  - **Documentação da API:** Todos end-points do projeto foram mapeados com utilização do SWAGGER que podem ser visualizados no endereço : **http://localhost:8080/swagger-ui.html#/conta-controller ** segue na imagem a seguir:
+
+## End-points :
+
+![Image](https://github.com/silvaij/bluebank/blob/master/swagger_cliente-controller.PNG "Cliente")
+
+![Image](https://github.com/silvaij/bluebank/blob/master/swagger_conta-controller.PNG "Conta")
+
+![Image](https://github.com/silvaij/bluebank/blob/master/models.PNG "Models")
+
+
 
 
   ## Dependências Maven
 
   ```xml
-  <?xml version="1.0" encoding="UTF-8"?>
+ <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -88,6 +90,22 @@ Antes de rodar a aplicação verifique se o arquivo application.properties está
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- SWAGEER -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>8.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -100,7 +118,6 @@ Antes de rodar a aplicação verifique se o arquivo application.properties está
 	</build>
 
 </project>
-
   ```
 
   ### Conexao com banco de dados (application-dev.properties)
@@ -115,9 +132,7 @@ Antes de rodar a aplicação verifique se o arquivo application.properties está
 ## Testes
   Testes para validar o funcionamento corretos dos métodos nas classes de repository e service foram criados e podem ser encontrados em `src/test/java/br.com.bloodblue.bluebank`
     
-    
-  ## Membros
-
+## Membros
   - Isaque Silva.
   - Bruno Carvalho.
   - Luiz Bazante.
